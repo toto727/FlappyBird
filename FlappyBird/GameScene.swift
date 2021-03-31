@@ -12,6 +12,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var wallNode:SKNode!
     var bird:SKSpriteNode!
     var itemNode:SKNode!   //add
+    // サウンド追加
+    let itemGetSound = SKAction.playSoundFileNamed("sound.mp3", waitForCompletion: true)
     // 衝突判定カテゴリー
        let birdCategory: UInt32 = 1 << 0       // 0...00001
        let groundCategory: UInt32 = 1 << 1     // 0...00010
@@ -342,8 +344,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             itemscore += 1
             itemscoreLabelNode.text = "ItemScore: \(itemscore)"
             
-            // サウンド追加
-            let itemGetSound = SKAction.playSoundFileNamed("sound.mp3", waitForCompletion: true)
             self.run(itemGetSound)
             
             // 衝突したアイテムを消去
@@ -366,7 +366,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             score = 0
             itemscore = 0
             scoreLabelNode.text = "Score:\(score)"
-            itemscoreLabelNode.text = "Score:\(itemscore)"
+            itemscoreLabelNode.text = "ItemScore:\(itemscore)"
             bird.position = CGPoint(x: self.frame.size.width * 0.2, y:self.frame.size.height * 0.7)
             bird.physicsBody?.velocity = CGVector.zero
             bird.physicsBody?.collisionBitMask = groundCategory | wallCategory
